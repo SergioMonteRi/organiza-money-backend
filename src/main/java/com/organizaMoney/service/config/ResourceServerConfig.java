@@ -27,6 +27,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private Environment env;
     private static final String[] PUBLIC = {"/oauth/token", "/h2-console/**","/v3/**","/swagger-ui/**","/users/**"};
+    private static final String[] USER = {"/expenseType/**","/expenses/**","/infos/**"};
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -36,6 +37,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers(PUBLIC).permitAll()
+                .antMatchers(USER).hasRole("USER")
                 .anyRequest().authenticated();
 
         http.cors().configurationSource(corsConfigurationSource());

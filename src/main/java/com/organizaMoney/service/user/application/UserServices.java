@@ -2,7 +2,8 @@ package com.organizaMoney.service.user.application;
 
 import com.organizaMoney.service.role.Role;
 import com.organizaMoney.service.user.domain.User;
-import com.organizaMoney.service.user.http.UserDto;
+import com.organizaMoney.service.user.infra.UserDto;
+import com.organizaMoney.service.user.infra.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;

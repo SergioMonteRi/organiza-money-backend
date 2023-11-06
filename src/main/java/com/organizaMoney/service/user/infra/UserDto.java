@@ -1,4 +1,4 @@
-package com.organizaMoney.service.user.http;
+package com.organizaMoney.service.user.infra;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 

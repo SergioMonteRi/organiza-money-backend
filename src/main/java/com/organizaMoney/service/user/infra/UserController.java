@@ -1,4 +1,4 @@
-package com.organizaMoney.service.user.http;
+package com.organizaMoney.service.user.infra;
 
 import com.organizaMoney.service.user.application.UserServices;
 import org.springframework.http.ResponseEntity;

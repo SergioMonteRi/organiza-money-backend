@@ -1,4 +1,4 @@
-package com.organizaMoney.service.user.application;
+package com.organizaMoney.service.user.infra;
 
 import com.organizaMoney.service.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
