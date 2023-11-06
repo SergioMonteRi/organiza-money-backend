@@ -1,7 +1,7 @@
 package com.organizaMoney.service.components;
 
-import com.organizaMoney.service.user.User;
-import com.organizaMoney.service.user.services.UserRepository;
+import com.organizaMoney.service.user.domain.User;
+import com.organizaMoney.service.user.application.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;

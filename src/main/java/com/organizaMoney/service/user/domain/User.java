@@ -1,4 +1,4 @@
-package com.organizaMoney.service.user;
+package com.organizaMoney.service.user.domain;
 import com.organizaMoney.service.role.Role;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,8 +33,6 @@ public class User implements UserDetails,Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
-
-
     public User() {
 
     }

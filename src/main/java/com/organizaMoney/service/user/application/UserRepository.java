@@ -1,6 +1,6 @@
-package com.organizaMoney.service.user.services;
+package com.organizaMoney.service.user.application;
 
-import com.organizaMoney.service.user.User;
+import com.organizaMoney.service.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

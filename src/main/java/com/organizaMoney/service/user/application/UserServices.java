@@ -1,7 +1,7 @@
-package com.organizaMoney.service.user.services;
+package com.organizaMoney.service.user.application;
 
 import com.organizaMoney.service.role.Role;
-import com.organizaMoney.service.user.User;
+import com.organizaMoney.service.user.domain.User;
 import com.organizaMoney.service.user.http.UserDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,6 +1,6 @@
 package com.organizaMoney.service.user.http;
 
-import com.organizaMoney.service.user.services.UserServices;
+import com.organizaMoney.service.user.application.UserServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

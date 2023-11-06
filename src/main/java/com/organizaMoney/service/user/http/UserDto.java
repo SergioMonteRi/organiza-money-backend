@@ -3,9 +3,12 @@ package com.organizaMoney.service.user.http;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 public record UserDto(Long id,
+                      @NotNull
                       String firstName,
+                      @NotNull
                       String lastName,
                       @Email
                       String email,
