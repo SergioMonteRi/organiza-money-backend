@@ -13,7 +13,6 @@ import java.time.LocalDate;
 public class FilterDTO {
     LocalDate date;
     BigDecimal sum;
-
     public FilterDTO(LocalDate date, BigDecimal sum){
         this.date = date;
         this.sum = sum;

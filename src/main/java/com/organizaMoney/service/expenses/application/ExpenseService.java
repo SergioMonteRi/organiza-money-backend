@@ -40,4 +40,11 @@ public class ExpenseService {
         LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
         return expenseRepository.filter(min, max, expenseTypeId);
     }
+
+    @Transactional(readOnly = true)
+    public List<SummaryDTO> summary(String startDate, String endDate, Long expenseTypeId){
+        LocalDate min = "".equals(startDate) ? null : LocalDate.parse(startDate);
+        LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
+        return expenseRepository.summary(min, max, expenseTypeId);
+    }
 }

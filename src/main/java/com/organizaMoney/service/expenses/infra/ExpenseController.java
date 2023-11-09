@@ -3,6 +3,7 @@ package com.organizaMoney.service.expenses.infra;
 import com.organizaMoney.service.expenses.application.ExpenseDTO;
 import com.organizaMoney.service.expenses.application.ExpenseService;
 import com.organizaMoney.service.expenses.application.FilterDTO;
+import com.organizaMoney.service.expenses.application.SummaryDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,5 +27,14 @@ public class ExpenseController {
             @RequestParam(value = "endDate",  defaultValue = "") String endDate,
             @RequestParam(value = "expenseType", required = false) Long expenseTypeId){
         return ResponseEntity.ok().body(expenseService.filter(startDate, endDate, expenseTypeId));
+    }
+
+    @GetMapping("/summary")
+    public ResponseEntity<List<SummaryDTO>> summary(
+            @RequestParam(value = "startDate", defaultValue = "")String startDate,
+            @RequestParam(value = "endDate",  defaultValue = "") String endDate,
+            @RequestParam(value = "expenseType", required = false) Long expenseTypeId
+    ){
+        return ResponseEntity.ok().body(expenseService.summary(startDate, endDate, expenseTypeId));
     }
 }
