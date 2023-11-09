@@ -5,6 +5,8 @@ import com.organizaMoney.service.expenses.domain.ExpenseType;
 import com.organizaMoney.service.expenses.infra.ExpenseRepository;
 import com.organizaMoney.service.user.application.UserServices;
 import com.organizaMoney.service.user.domain.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +36,13 @@ public class ExpenseService {
         expense.setExpenseType(expenseType);
         return new ExpenseDTO(expenseRepository.save(expense));
     }
+
+    public Page<TableDataDTO> index(String startDate, String endDate, Long expenseTypeId, Pageable pageable){
+        LocalDate min = "".equals(startDate) ? null : LocalDate.parse(startDate);
+        LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
+        return expenseRepository.index(min, max, expenseTypeId, pageable);
+    }
+
     @Transactional(readOnly = true)
     public List<FilterDTO> filter(String startDate, String endDate, Long expenseTypeId){
         LocalDate min = "".equals(startDate) ? null : LocalDate.parse(startDate);

@@ -1,6 +1,8 @@
 package com.organizaMoney.service.expenses.infra;
 
 import com.organizaMoney.service.expenses.application.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +20,16 @@ public class ExpenseController {
     public ResponseEntity<ExpenseDTO> save(@Valid @RequestBody ExpenseDTO expenseDTO){
         return ResponseEntity.ok().body(expenseService.save(expenseDTO));
     }
-    @GetMapping
+
+    @GetMapping()
+    public ResponseEntity<Page<TableDataDTO>> index(
+            @RequestParam(value = "startDate", defaultValue = "")String startDate,
+            @RequestParam(value = "endDate",  defaultValue = "") String endDate,
+            @RequestParam(value = "expenseType", required = false) Long expenseTypeId,
+            Pageable pageable){
+        return ResponseEntity.ok().body(expenseService.index(startDate, endDate, expenseTypeId, pageable));
+    }
+    @GetMapping("/filter")
     public ResponseEntity<List<FilterDTO>>filter(
             @RequestParam(value = "startDate", defaultValue = "")String startDate,
             @RequestParam(value = "endDate",  defaultValue = "") String endDate,
