@@ -47,4 +47,11 @@ public class ExpenseService {
         LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
         return expenseRepository.summary(min, max, expenseTypeId);
     }
+
+    @Transactional(readOnly = true)
+    public List<SpendTypeDTO> spendType(String startDate, String endDate){
+        LocalDate min = "".equals(startDate) ? null : LocalDate.parse(startDate);
+        LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
+        return expenseRepository.spendType(min, max);
+    }
 }
