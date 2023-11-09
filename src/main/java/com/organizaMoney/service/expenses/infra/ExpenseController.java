@@ -2,13 +2,12 @@ package com.organizaMoney.service.expenses.infra;
 
 import com.organizaMoney.service.expenses.application.ExpenseDTO;
 import com.organizaMoney.service.expenses.application.ExpenseService;
+import com.organizaMoney.service.expenses.application.FilterDTO;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/expense")
@@ -17,10 +16,15 @@ public class ExpenseController {
     public ExpenseController(ExpenseService expenseService){
         this.expenseService = expenseService;
     }
-
     @PostMapping
     public ResponseEntity<ExpenseDTO> save(@Valid @RequestBody ExpenseDTO expenseDTO){
         return ResponseEntity.ok().body(expenseService.save(expenseDTO));
     }
-
+    @GetMapping
+    public ResponseEntity<List<FilterDTO>>filter(
+            @RequestParam(value = "startDate", defaultValue = "")String startDate,
+            @RequestParam(value = "endDate",  defaultValue = "") String endDate,
+            @RequestParam(value = "expenseType", required = false) Long expenseTypeId){
+        return ResponseEntity.ok().body(expenseService.filter(startDate, endDate, expenseTypeId));
+    }
 }

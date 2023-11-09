@@ -6,6 +6,10 @@ import com.organizaMoney.service.expenses.infra.ExpenseRepository;
 import com.organizaMoney.service.user.application.UserServices;
 import com.organizaMoney.service.user.domain.User;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class ExpenseService {
@@ -29,5 +33,11 @@ public class ExpenseService {
         expense.setDate(expenseDTO.getDate());
         expense.setExpenseType(expenseType);
         return new ExpenseDTO(expenseRepository.save(expense));
+    }
+    @Transactional(readOnly = true)
+    public List<FilterDTO> filter(String startDate, String endDate, Long expenseTypeId){
+        LocalDate min = "".equals(startDate) ? null : LocalDate.parse(startDate);
+        LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
+        return expenseRepository.filter(min, max, expenseTypeId);
     }
 }
