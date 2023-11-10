@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name = "tb_expense_type")
 @Entity
@@ -15,6 +16,9 @@ public class ExpenseType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
+
+    @OneToMany(mappedBy = "expenseType", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Expense> expenses;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
