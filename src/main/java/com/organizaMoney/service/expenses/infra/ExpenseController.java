@@ -3,6 +3,7 @@ package com.organizaMoney.service.expenses.infra;
 import com.organizaMoney.service.expenses.application.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,17 @@ public class ExpenseController {
     @PostMapping
     public ResponseEntity<ExpenseDTO> save(@Valid @RequestBody ExpenseDTO expenseDTO){
         return ResponseEntity.ok().body(expenseService.save(expenseDTO));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> delete(@PathVariable("id") Long id){
+        this.expenseService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ExpenseDTO> update(@PathVariable("id") Long id, @Valid @RequestBody ExpenseDTO expenseDTO){
+        return ResponseEntity.ok().body(this.expenseService.update(id, expenseDTO));
     }
 
     @GetMapping()

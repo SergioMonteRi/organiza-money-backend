@@ -10,8 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ExpenseService {
@@ -20,12 +23,32 @@ public class ExpenseService {
     private final UserServices userServices;
 
     public ExpenseService(ExpenseRepository expenseRepository,
-                          UserServices userServices){
+                          UserServices userServices) {
         this.expenseRepository = expenseRepository;
         this.userServices = userServices;
     }
 
-    public ExpenseDTO save(ExpenseDTO expenseDTO){
+    public ExpenseDTO update(Long id, ExpenseDTO expenseDTO) {
+        Expense expense = this.expenseRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Gasto não encontrado"));
+        expense.setSpend(expenseDTO.getValue());
+        if (!Objects.equals(expense.getExpenseType().getId(), expenseDTO.getExpenseType().id)) {
+            ExpenseType expenseType = new ExpenseType();
+            expenseType.setName(expenseType.getName());
+            expenseType.setId(expenseType.getId());
+            expense.setExpenseType(expenseType);
+        }
+        expense.setDate(expenseDTO.getDate());
+        return new ExpenseDTO(expense);
+    }
+
+    public void delete(Long id) {
+        if (this.expenseRepository.findById(id).isPresent()) {
+            this.expenseRepository.deleteById(id);
+        }
+    }
+
+    public ExpenseDTO save(ExpenseDTO expenseDTO) {
         User user = userServices.getLoggedUser();
         ExpenseType expenseType = new ExpenseType();
         expenseType.setId(expenseDTO.expenseType.getId());
@@ -37,28 +60,28 @@ public class ExpenseService {
         return new ExpenseDTO(expenseRepository.save(expense));
     }
 
-    public Page<TableDataDTO> index(String startDate, String endDate, Long expenseTypeId, Pageable pageable){
+    public Page<TableDataDTO> index(String startDate, String endDate, Long expenseTypeId, Pageable pageable) {
         LocalDate min = "".equals(startDate) ? null : LocalDate.parse(startDate);
         LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
         return expenseRepository.index(min, max, expenseTypeId, pageable);
     }
 
     @Transactional(readOnly = true)
-    public List<FilterDTO> filter(String startDate, String endDate, Long expenseTypeId){
+    public List<FilterDTO> filter(String startDate, String endDate, Long expenseTypeId) {
         LocalDate min = "".equals(startDate) ? null : LocalDate.parse(startDate);
         LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
         return expenseRepository.filter(min, max, expenseTypeId);
     }
 
     @Transactional(readOnly = true)
-    public List<SummaryDTO> summary(String startDate, String endDate, Long expenseTypeId){
+    public List<SummaryDTO> summary(String startDate, String endDate, Long expenseTypeId) {
         LocalDate min = "".equals(startDate) ? null : LocalDate.parse(startDate);
         LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
         return expenseRepository.summary(min, max, expenseTypeId);
     }
 
     @Transactional(readOnly = true)
-    public List<SpendTypeDTO> spendType(String startDate, String endDate){
+    public List<SpendTypeDTO> spendType(String startDate, String endDate) {
         LocalDate min = "".equals(startDate) ? null : LocalDate.parse(startDate);
         LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
         return expenseRepository.spendType(min, max);

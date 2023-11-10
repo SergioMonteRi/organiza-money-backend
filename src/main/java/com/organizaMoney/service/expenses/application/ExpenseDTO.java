@@ -16,7 +16,9 @@ import java.time.LocalDate;
 public class ExpenseDTO {
     @NotNull
     LocalDate date;
+    @NotNull
     BigDecimal value;
+    @NotNull
     ExpenseTypeDTO expenseType;
     public ExpenseDTO(Expense expense){
         this.date = expense.getDate();
