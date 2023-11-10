@@ -38,7 +38,7 @@ public class UserServices implements UserDetailsService {
     public UserDto save(UserDto userDTO) {
         User user = new User();
         user.setEmail(userDTO.email());
-        user.getRoles().add(new Role(2L,"ROLE_USER"));
+        user.getRoles().add(new Role(1L,"ROLE_USER"));
         user.setFirstName(userDTO.firstName());
         user.setLastName(userDTO.lastName());
         user.setPassword(passwordEncoder.encode(userDTO.password()));
