@@ -28,7 +28,7 @@ public class ExpenseTypeService {
     }
     @Transactional(readOnly = true)
     public Set<ExpenseTypeDTO> index(){
-        return this.expenseTypeRepository.findAll().stream().map(ExpenseTypeDTO::new).collect(Collectors.toSet());
+        return this.expenseTypeRepository.findAllByUser(userServices.getLoggedUser()).stream().map(ExpenseTypeDTO::new).collect(Collectors.toSet());
     }
     @Transactional
     public ExpenseTypeDTO update(ExpenseTypeDTO expenseTypeDTO, Long id){

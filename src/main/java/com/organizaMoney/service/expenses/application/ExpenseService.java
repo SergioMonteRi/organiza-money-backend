@@ -63,27 +63,27 @@ public class ExpenseService {
     public Page<TableDataDTO> index(String startDate, String endDate, Long expenseTypeId, Pageable pageable) {
         LocalDate min = "".equals(startDate) ? null : LocalDate.parse(startDate);
         LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
-        return expenseRepository.index(min, max, expenseTypeId, pageable);
+        return expenseRepository.index(min, max, expenseTypeId, pageable, userServices.getLoggedUser().getId());
     }
 
     @Transactional(readOnly = true)
     public List<FilterDTO> filter(String startDate, String endDate, Long expenseTypeId) {
         LocalDate min = "".equals(startDate) ? null : LocalDate.parse(startDate);
         LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
-        return expenseRepository.filter(min, max, expenseTypeId);
+        return expenseRepository.filter(min, max, expenseTypeId, userServices.getLoggedUser().getId());
     }
 
     @Transactional(readOnly = true)
     public List<SummaryDTO> summary(String startDate, String endDate, Long expenseTypeId) {
         LocalDate min = "".equals(startDate) ? null : LocalDate.parse(startDate);
         LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
-        return expenseRepository.summary(min, max, expenseTypeId);
+        return expenseRepository.summary(min, max, expenseTypeId, userServices.getLoggedUser().getId());
     }
 
     @Transactional(readOnly = true)
     public List<SpendTypeDTO> spendType(String startDate, String endDate) {
         LocalDate min = "".equals(startDate) ? null : LocalDate.parse(startDate);
         LocalDate max = "".equals(endDate) ? null : LocalDate.parse(endDate);
-        return expenseRepository.spendType(min, max);
+        return expenseRepository.spendType(min, max, userServices.getLoggedUser().getId());
     }
 }
